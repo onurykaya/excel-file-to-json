@@ -25,7 +25,19 @@
         </option>
       </c-select>
     </c-box>-->
-    <PharmacyCard v-bind:pharmacyList="pharmacyList" />
+    <PharmacyCard
+      v-if="isLoading === false"
+      v-bind:pharmacyList="pharmacyList"
+    />
+    <div class="spinner" v-else>
+      <c-spinner
+        thickness="4px"
+        speed="0.65s"
+        empty-color="green.200"
+        color="white"
+        size="xl"
+      />
+    </div>
   </div>
 </template>
 
@@ -43,7 +55,7 @@ export default {
   data() {
     return {
       pharmacyList: null,
-      isLoading: false,
+      isLoading: true,
       errorMessage: "",
       destinationData: [
         {
@@ -1486,8 +1498,19 @@ export default {
         )
         .then(response => {
           this.pharmacyList = response.data.result;
+        })
+        .finally(() => {
+          this.isLoading = false;
         });
     }
   }
 };
 </script>
+
+<style scoped>
+.spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+</style>
