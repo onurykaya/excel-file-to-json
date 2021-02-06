@@ -1,4 +1,4 @@
-# pharmacy-app-vue
+# excel-file-to-json
 
 ## Project setup
 ```
